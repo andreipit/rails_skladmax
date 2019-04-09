@@ -1,0 +1,122 @@
+<!-- <h1>Welcome#index</h1> -->
+<!-- <p>Find me in app/views/welcome/index.html.erb</p> -->
+
+
+
+<div class="row">
+<% @products.each do |product| %>
+
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <div><%= product.name%></div>
+      <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="<%#=@img_link%>" data-holder-rendered="true"> -->
+      <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="<%#=@img_links.select {|k| k[:product_id] == product.id}[0][:img_link]%>" data-holder-rendered="true"> -->
+      
+
+      <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="<%#=@img_links.select {|k| k[:product_id] == product.id}[0][:img_link]%>" data-holder-rendered="true"> -->
+      <a href="<%=product_show_path(code: product.code)%>" >
+        <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="<%=@img_links.select {|k| k[:product_id] == product.id}[0][:img_link]%>" data-holder-rendered="true">
+        <!-- <img src="<%#=@img_links.select {|k| k[:product_id] == product.id}[0][:img_link]%>" class="img-fluid" > -->
+      </a>
+
+      <div class="card-body">
+        <p class="card-text">
+
+          <% if @edit_mode == true %>
+            <%= form_for(:new_imgs, url: product_upload_img_path, method: "post", :html => {id: 'upload_form', class: 'editable_form'}) do |f| %>
+                <!-- <button type="button" class="btn btn-sm btn-outline-secondary"><%#= f.file_field :new_img %></button> -->
+                <!-- <button type="button" class="btn btn-sm btn-outline-secondary"><%#= f.submit %></button> -->
+                
+
+
+                <%#= f.file_field :new_img, class: "btn btn-sm btn-outline-secondary" %>
+
+
+                <%#= f.file_field :new_img, class: "d-none" %>
+                <!-- <label for="new_imgs_new_img" class="btn btn-sm btn-outline-secondary">Выбрать фото</label> -->
+                
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Изменить картинку:</label>
+                  <!-- <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
+                  <%= f.file_field :new_img, class: "form-control-file", id: "exampleFormControlFile1" %>
+                </div>
+
+
+                <%= f.hidden_field :product_code, :value =>  product.code %>
+                <%= f.hidden_field :category_id, :value =>  @current_category_id %>
+                <%= f.submit 'Сохранить', :class => 'btn btn-sm btn-outline-secondary' %>
+            <% end %>
+          <% end %>
+          
+            <div><span>Код:</span><%= product.code%></div>
+            <div><span>Цена:</span><%= product.price%></div>
+            <%#= link_to "Добавить в корзину", order_add_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+
+
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">View</button> -->
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
+              <%#= link_to 'Подробнее', product_show_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+            </button> -->
+
+
+              <%#= link_to 'Подробнее', product_show_path(code: product.code, admin_mode: @edit_mode), method: :get, class: "btn btn-sm btn-outline-secondary", id: "link_to_product_01" %>
+              <%= link_to 'Подробнее', product_show_path(code: product.code), method: :get, class: "btn btn-sm btn-outline-secondary", id: "link_to_product_01" %>
+
+          </div>
+            
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+          <!-- <small class="text-muted">9 mins</small> -->
+          <!-- <small class="text-muted"><%#=product.updated_at%></small> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<% end %>
+
+</div>
+
+  
+
+
+
+<!-- 
+<div id="col_2" style="float:right;">
+
+  <%# @products.paginate(:page => 1, :per_page => 4).each do |product| %>
+  <%# @products.each do |product| %>
+    <hr>
+    <div><%#= product.code%></div>
+      <%#= link_to product.name, product_show_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+    <%#= content_tag(:h2, product.name, class: "product_name") %>
+    <div><%#= product.price%></div>
+    <div>Изображение</div>
+     <img src="http://www.exampleimagehost.com/my-cute-dog.jpg">
+
+
+
+    <%# path_to_file = Rails.root.join('app', 'assets', 'images', product.code + '.jpg') %>
+      <%# path_to_file = Rails.root.join('app', 'assets', 'images', product.code + '.jpg') %>
+    <%# if File.exist?(path_to_file) || File.symlink?(path_to_file) %>
+      <%#= image_tag (product.code + '.jpg'), class: "img-responsive", size: "50"%>
+    <%# else %>
+      <%#= image_tag ("no_image.jpg"), class: "img-responsive", size: "50"%>
+    <%# end %>
+
+
+
+
+
+      <%#= link_to "Добавить в корзину", order_add_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+      <%#= link_to "Ссылка на статью", product_show_path(code: product.code), target: "_blank", method: :get, class: "export_act", id: "export_04" %>
+    <hr>
+    </br>
+    </br>
+    </br>
+  <%# end %>
+  <%#= will_paginate @products %>
+</div> -->
+

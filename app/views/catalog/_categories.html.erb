@@ -1,0 +1,34 @@
+
+
+<div id="myId" class="btn btn-sm btn-outline-secondary">Скрыть категории</div>
+
+<script type="text/javascript">
+	$(function(){ $('#myId').on('click',function(){ 
+
+		// $("#col_1").toggleClass('d-none');
+		if ($("#col_1").attr('class') == 'd-none')
+		{
+			$("#col_1").removeClass('d-none');
+			$(this)[0].innerHTML = "Скрыть категории";
+		}
+		else
+		{
+			$("#col_1").addClass('d-none');
+			$(this)[0].innerHTML = "Показать категории";
+		}
+	})});
+</script>
+
+
+<!-- <div id="col_1" style="float:left;"> -->
+<div id="col_1" class="">
+	<% @categories.each do |category| %>
+		<div>
+            <% if @edit_mode == false %>
+	    		<%= link_to category.name, catalog_show_path(category_id: category.id), method: :get, class: "link", id: "link_01" %>
+            <% else %>
+	    		<%= link_to category.name, admin_show_path(category_id: category.id), method: :get, class: "link", id: "link_01" %>
+            <% end %>
+		</div>
+	<% end %>
+</div>

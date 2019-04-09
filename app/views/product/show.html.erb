@@ -1,0 +1,94 @@
+<%product = @product%>
+
+<div class="col-md-12">
+    <div class="card mb-12 shadow-sm">
+      <div><%= product.name%></div>
+      <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 500px; width: 100%; display: block;" src="<%#=@img_link%>" data-holder-rendered="true"> -->
+      
+      <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" style="height: 720px; width: 100%; display: block;" src="<%=@img_link%>" data-holder-rendered="true">
+
+
+      <!-- <img src="<%#=@img_link%>" class="img-fluid" alt="Responsive image"> -->
+
+
+      <div class="card-body">
+        <p class="card-text">
+        
+        <div><span>Код:</span><%= product.code%></div>
+        <div><span>Цена:</span><%= product.price%></div>
+        <%#= link_to "Добавить в корзину", order_add_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+
+
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">View</button> -->
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+              
+              <%#= link_to 'Подробнее', product_show_path(code: product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+
+
+          		<%# if @admin_mode == true %>
+					<%#= link_to "Назад", admi_index_path, class: "link_to_products", id: "link_to_products_01" %>
+          		<%# else %>
+					<%= link_to "Назад", root_path, class: "link_to_products", id: "link_to_products_01" %>
+          		<%# end %>
+            </button>
+
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+          </div>
+          <!-- <small class="text-muted">9 mins</small> -->
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+<% if false %>
+
+	<h1>Product#show</h1>
+	<p>Find me in app/views/product/show.html.erb</p>
+	<%= link_to "Назад", root_path, class: "link_to_products", id: "link_to_products_01" %>
+
+	<hr>
+	<div><%= @product.code%></div>
+	<%= content_tag(:h2, @product.name, class: "product_name") %>
+	<div><%= @product.price%></div>
+	<div>Изображение</div>
+
+
+	<%= form_for(:new_imgs, url: product_upload_img_path, method: "post", :html => {id: 'upload_form', class: 'editable_form'}) do |f| %>
+		<%= f.file_field :new_img %>
+		<%= f.hidden_field :product_code, :value =>  @product.code %>
+		<%= f.submit %>
+	<% end %>
+
+
+
+	<%= image_tag (@img_link), class: "img-responsive", size: "500"%>
+
+	<%#= image_tag ("05564.jpg"), class: "img-responsive", size: "50"%>
+	<%# path_to_file = Rails.root.join('public', 'images', @product.code + '.jpg') %>
+
+	<%# path_to_file = Rails.root.join('app', 'assets', 'images', @product.code + '.jpg') %>
+	<%# if File.exist?(path_to_file) || File.symlink?(path_to_file) %>
+		<%#= image_tag (@product.code + '.jpg'), class: "img-responsive", size: "500"%>
+	<%# else %>
+		<%#= image_tag ("no_image.jpg"), class: "img-responsive", size: "500"%>
+	<%# end %>
+
+
+
+	<!-- <img src="http://www.exampleimagehost.com/my-cute-dog.jpg"> -->
+
+	<%#= link_to "Добавить в корзину", order_add_path(code: @product.code), method: :get, class: "link_to_product", id: "link_to_product_01" %>
+	<hr>
+	</br>
+	</br>
+	</br>
+
+<% end %>

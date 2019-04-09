@@ -1,0 +1,40 @@
+<%# if false %>
+
+	<div class="row">
+		<%= form_for(:new_prices, url: admin_upload_path, method: "post", :html => {id: 'upload_form', class: 'editable_form'}) do |f| %>
+				<!-- <div class="form_checkbox_toggle"> -->
+			        <%#= f.check_box :no_sandbox %>
+			        <!-- <label for="category_no_sandbox">Без песочницы</label> -->
+				<%#= f.hidden_field :user_id, :value =>  params[:user_id] %>
+				<%= f.file_field :price_xls %>
+				<%= f.submit %>
+				<%#= button_to catalog_upload_path, :method => :post, remote: true, :class=>"accept_btn" do %>Отправить новый прайс<%# end %>
+				<%#= f.submit %>
+			</div>
+
+		<% end %>
+	</div>
+<%# end %>
+
+<div class="row">
+	<div class="col-6 col-lg-4"><%= render :partial => 'catalog/categories'%></div>
+	<div class="col-12 col-sm-6 col-lg-8" id="products"><%= render :partial => 'catalog/products'%></div>
+</div>
+<!-- , remote: true -->
+
+
+
+<%#= @info %>
+
+
+
+
+
+<!-- 
+* @category is the array name, you can write instead @category -> :period (new array name)
+* if you use @category -> form inputs parameters must be the same as @category columns
+* in admin_category_create_path you will receive ":params[:period][:article_reject_comment]"
+* "no_sandbox" = column name (same as in schema.rb)
+* "category_no_sandbox" is = "table_column"
+* "admin_category_create_path" -> routes.rb -> category#category_create -> category_controller.rb -> def category_create ->  @category = Category.new(category_params) -> def category_params -> add new variable
+ -->
